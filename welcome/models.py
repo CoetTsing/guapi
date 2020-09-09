@@ -20,11 +20,17 @@ class Movie(models.Model):
     directors = models.CharField(max_length=500)
     authors = models.CharField(max_length=600)
     actorsShort = models.CharField(max_length=5000)
-    profile = models.CharField(max_length=5000)
+    profile = models.TextField()
     rating = models.CharField(max_length=5)
     actors = models.ManyToManyField(Actor)
 
+    def __str__(self):
+        return f"{self.myID}\n{self.name}\n{self.image}\n{self.directors}\n{self.profile}\n{self.rating}\n{self.actors}\n{self.comment_set}"
+
 
 class Comment(models.Model):
-    content = models.CharField(max_length=1000)
+    content = models.TextField()
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.content}"
