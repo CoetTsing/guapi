@@ -34,3 +34,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.content}"
+
+
+class Coworker(models.Model):
+    myID = models.CharField(max_length=10)
+    times = models.IntegerField()
+    actor = models.ForeignKey(Actor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.myID}\n{self.times}"
