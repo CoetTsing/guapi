@@ -18,7 +18,7 @@
             <div class="col-6">
                 <form action="search" method="get" style="position: relative; top: 0px">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                         <label class="form-check-label" for="inlineRadio1" style="color: white">电影</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -26,7 +26,7 @@
                         <label class="form-check-label" for="inlineRadio2" style="color: white">演员</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" checked>
                         <label class="form-check-label" for="inlineRadio3" style="color: white">影评</label>
                     </div>
                     <div class="input-group mb-3">
@@ -42,16 +42,15 @@
     <div id="main">
         <p style="position: relative; left: 120px">Find {{ len }} results in {{ cost }} seconds</p>
         <div class="container">
-            <div class="row">
-                {% for movie in moviesAll %}
-                    <div class="col-3">
-                        <a href="movie{{ movie.myID }}">
-                            <p><img width="240" height="330" src={{ movie.image }} ></p>
-                            <p>{{ movie.name }} <span id="rating">{{ movie.rating }}</span></p>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
+            <p></p>
+            <p>________________________________________</p>
+            {% for comment in commentsAll %}
+                <a href="movie{{ comment.movie.myID }}">
+                <p>Comment of <span  style="color: gold; font-size: 110%">{{ comment.movie.name }}</span></p>
+                <p>{{ comment }}</p>
+                </a>
+                <p>________________________________________</p>
+            {% endfor%}
             <div class="row">
             <div class="col-4"></div>
             <div class="col-3">
@@ -59,7 +58,7 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
-                        <a class="page-link" href="m_s{{ 1 }}">首</a>
+                        <a class="page-link" href="s_c{{ 1 }}">首</a>
                     </li>
                     {% if page == 1 %}
                         <li class="page-item disabled">
@@ -67,25 +66,25 @@
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="m_s{{ page|add:-1 }}">后</a>
+                            <a class="page-link" href="s_c{{ page|add:-1 }}">后</a>
                         </li>
                     {% endif %}
                     {% if page == 1 and page == max %}
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">*</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">{{ page }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">*</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">*</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">{{ page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">*</a></li>
                     {% elif page == 1 %}
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">*</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">{{ page }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page|add:1 }}">{{ page|add:1 }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">*</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">{{ page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page|add:1 }}">{{ page|add:1 }}</a></li>
                     {% elif page == max %}
-                        <li class="page-item"><a class="page-link" href="m_s{{ page|add:-1 }}">{{ page|add:-1 }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">{{ page }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">*</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page|add:-1 }}">{{ page|add:-1 }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">{{ page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">*</a></li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="m_s{{ page|add:-1 }}">{{ page|add:-1 }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page }}">{{ page }}</a></li>
-                        <li class="page-item"><a class="page-link" href="m_s{{ page|add:1 }}">{{ page|add:1 }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page|add:-1 }}">{{ page|add:-1 }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page }}">{{ page }}</a></li>
+                        <li class="page-item"><a class="page-link" href="s_c{{ page|add:1 }}">{{ page|add:1 }}</a></li>
                     {% endif %}
                     {% if page == max %}
                         <li class="page-item disabled">
@@ -93,18 +92,18 @@
                         </li>
                     {% else %}
                         <li class="page-item">
-                            <a class="page-link" href="m_s{{ page|add:1 }}">前</a>
+                            <a class="page-link" href="s_c{{ page|add:1 }}">前</a>
                         </li>
                     {% endif %}
                     <li class="page-item">
-                        <a class="page-link" href="m_s{{ max }}">尾</a>
+                        <a class="page-link" href="s_c{{ max }}">尾</a>
                     </li>
                 </ul>
             </nav>
             </div>
             <div class="col-4">
                 <span style="color: white; position: relative; top: 23px; left: 5px">跳至</span>
-                <form action="s_m_j" method="get">
+                <form action="s_c_j" method="get">
                     <input type="text" name="page" style="position: relative; left: 50px; top: -6px; width: 35px; height: 35px">
                 </form>
             </div>

@@ -123,10 +123,20 @@ def s_a(keyword):
     return tot
 
 
+def s_c(keyword):
+    results.clear()
+    begin = datetime.now()
+    for result in Comment.objects.filter(Q(content__contains=keyword) | Q(short__contains=keyword)):
+        results.append(result)
+    end = datetime.now()
+    tot = (end - begin).total_seconds()
+    return tot
+
+
 def search(request):
     if request.GET['inlineRadioOptions'] == "option1":
         cost[0] = s_m(request.GET['keyword'])
-        return render(request, "welcome/m_s.html", {
+        return render(request, "welcome/s_m.html", {
             "moviesAll": results[0:20],
             "page": 1,
             "max": len(results) // 20 + 1,
@@ -135,8 +145,17 @@ def search(request):
         })
     elif request.GET['inlineRadioOptions'] == "option2":
         cost[0] = s_a(request.GET['keyword'])
-        return render(request, "welcome/a_s.html", {
+        return render(request, "welcome/s_a.html", {
             "actorsAll": results[0:20],
+            "page": 1,
+            "max": len(results) // 20 + 1,
+            "cost": cost[0],
+            "len": len(results)
+        })
+    elif request.GET['inlineRadioOptions'] == "option3":
+        cost[0] = s_c(request.GET['keyword'])
+        return render(request, "welcome/s_c.html", {
+            "commentsAll": results[0:20],
             "page": 1,
             "max": len(results) // 20 + 1,
             "cost": cost[0],
@@ -146,7 +165,7 @@ def search(request):
 
 def s_m_(request, page):
     moviesAll = results[(page - 1) * 20:page * 20]
-    return render(request, "welcome/m_s.html", {
+    return render(request, "welcome/s_m.html", {
         "moviesAll": moviesAll,
         "page": page,
         "max": len(results) // 20 + 1,
@@ -158,7 +177,7 @@ def s_m_(request, page):
 def s_m_j(request):
     page = int(request.GET['page'])
     moviesAll = results[(page - 1) * 20:page * 20]
-    return render(request, "welcome/m_s.html", {
+    return render(request, "welcome/s_m.html", {
         "moviesAll": moviesAll,
         "page": page,
         "max": len(results) // 20 + 1,
@@ -169,7 +188,7 @@ def s_m_j(request):
 
 def s_a_(request, page):
     actorsAll = results[(page - 1) * 20:page * 20]
-    return render(request, "welcome/a_s.html", {
+    return render(request, "welcome/s_a.html", {
         "actorsAll": actorsAll,
         "page": page,
         "max": len(results) // 20 + 1,
@@ -178,11 +197,34 @@ def s_a_(request, page):
     })
 
 
-def a_m_j(request):
+def s_a_j(request):
     page = int(request.GET['page'])
     actorsAll = results[(page - 1) * 20:page * 20]
-    return render(request, "welcome/a_s.html", {
+    return render(request, "welcome/s_a.html", {
         "actorsAll": actorsAll,
+        "page": page,
+        "max": len(results) // 20 + 1,
+        "cost": cost[0],
+        "len": len(results)
+    })
+
+
+def s_c_(request, page):
+    commentsAll = results[(page - 1) * 20:page * 20]
+    return render(request, "welcome/s_c.html", {
+        "commentsAll": commentsAll,
+        "page": page,
+        "max": len(results) // 20 + 1,
+        "cost": cost[0],
+        "len": len(results)
+    })
+
+
+def s_c_j(request):
+    page = int(request.GET['page'])
+    commentsAll = results[(page - 1) * 20:page * 20]
+    return render(request, "welcome/s_c.html", {
+        "commentsAll": commentsAll,
         "page": page,
         "max": len(results) // 20 + 1,
         "cost": cost[0],
