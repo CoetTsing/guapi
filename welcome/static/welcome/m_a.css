@@ -1,0 +1,27 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: rgba(5,5,5,0.9);
+}
+
+#main {
+    margin-top: 75px;
+}
+
+#name {
+    color: white;
+}
+
+p {
+    color: white;
+    white-space: pre-line;
+}
+
+#rating {
+    color: red;
+}

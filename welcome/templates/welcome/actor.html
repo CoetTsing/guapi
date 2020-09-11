@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <title>{{ actor.name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'welcome/m_a.css' %}">
+</head>
+<body>
+    <div class="container" style="background-color: rgba(10,10,10,0.8); padding: 18px; height: 120px; width: 100%;">
+        <div class="row">
+            <div class="col-1" style="position: relative; top: 23px; left: 30px"><a href="movie_list"><button type="button" class="btn btn-outline-light">电影</button></a></div>
+            <div class="col-1" style="position: relative; top: 23px; left: 30px"><a href="actor_list"><button type="button" class="btn btn-outline-light">演员</button></a></div>
+            <div class="col-2"></div>
+            <div class="col-6">
+                <form action="search" method="get" style="position: relative; top: 0px">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
+                        <label class="form-check-label" for="inlineRadio1" style="color: white">电影</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                        <label class="form-check-label" for="inlineRadio2" style="color: white">演员</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                        <label class="form-check-label" for="inlineRadio3" style="color: white">影评</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="输入关键字" aria-label="Recipient's username" aria-describedby="button-addon2" name="keyword">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">搜索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="container">
+            <div class="row justify-content-md-center" style="margin-bottom: 50px">
+                <div class="col-md-auto">
+                    <h1 id="name">{{ actor.name }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <img width="300" height="412" src={{ actor.jpg }}>
+                </div>
+                <div class="col-5">
+                    <p>
+                        {{ info }}
+                    </p>
+                </div>
+            </div>
+            <p></p>
+            <h3 style="color: cornsilk">演员简介</h3>
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <p style="color: cornsilk">{{ actor.profile }}</p>
+                </div>
+            </div>
+            <p></p>
+            <h3 style="color: cornsilk">参演电影</h3>
+            <p></p>
+            <div class="row">
+                {% for movie in movies %}
+                    <div class="col-2">
+                        <a href="movie{{ movie.myID }}">
+                            <p><img width="160" height="220" src={{ movie.image }} ></p>
+                            <p id="name">{{ movie.name }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <p></p>
+            <h3 style="color: cornsilk">合作演员</h3>
+            <p></p>
+            <div class="row">
+                {% for coworker, times in arr %}
+                    <div class="col-2">
+                        <a href="actor{{ coworker.myID }}">
+                            <p><img width="160" height="220" src={{ coworker.jpg }} ></p>
+                            <p id="name">{{ coworker.name }} ({{ times }})</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -25,3 +25,25 @@ def c():
         for key, value in ordered.items():
             actor.coworker_set.create(myID=key, times=value)
     print("done")
+
+
+def re():
+    for movie in Movie.objects.all():
+        movie.name = movie.name.replace('#39;s ', '')
+        movie.save()
+    print("done")
+
+
+def ac():
+    for actor in Actor.objects.all():
+        for movie in actor.movie_set.all():
+            actor.short = actor.short + movie.name
+            actor.save()
+    print("done")
+
+
+def sh():
+    for comment in Comment.objects.all():
+        comment.short = comment.movie.name
+        comment.save()
+    print("done")

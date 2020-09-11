@@ -8,6 +8,7 @@ class Actor(models.Model):
     info = models.CharField(max_length=3000)
     profile = models.CharField(max_length=3000)
     jpg = models.CharField(max_length=200)
+    short = models.TextField(default='/')
 
     def __str__(self):
         return f"{self.myID}\n{self.name}\n{self.info}\n{self.profile}\n{self.jpg}"
@@ -30,6 +31,7 @@ class Movie(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
+    short = models.TextField(default='')
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
     def __str__(self):
